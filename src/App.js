@@ -1,26 +1,94 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
 
-function App() {
+import { Container } from "./styles";
+
+export default function App() {
+  const [isRunning, setIsRunning] = useState(false);
+  const [newInterval, setNewInterval] = useState(false);
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [duration, setDuration] = useState(format(timeElapsed));
+  const [startTime, setStartTime] = useState();
+  const [timer, setTimer] = useState();
+  const [lap, setLap] = useState([]);
+
+  useEffect(() => {
+    if (newInterval && isRunning) {
+      setTimer(
+        setInterval(() => {
+          const tElapsed =
+            timeElapsed > 0
+              ? Date.now() - startTime + timeElapsed
+              : Date.now() - startTime;
+          setTimeElapsed(tElapsed);
+        }, 10)
+      );
+      setNewInterval(false);
+    }
+  }, [isRunning, newInterval, timeElapsed, startTime]);
+
+  useEffect(() => {
+    setDuration(format(timeElapsed));
+  }, [timeElapsed]);
+
+  function start() {
+    setIsRunning(true);
+    setStartTime(Date.now());
+    setNewInterval(true);
+  }
+
+  function stop() {
+    setIsRunning(false);
+    clearInterval(timer);
+  }
+
+  function reset() {
+    clearInterval(timer);
+    setTimeElapsed(0);
+    setLap([]);
+    setIsRunning(false);
+    setNewInterval(true);
+  }
+
+  function format(time) {
+    const allSec = time / 1000;
+    const min = Math.floor(allSec / 60);
+    const sec = Math.floor(allSec % 60);
+    const msec = (allSec % 1).toFixed(2).substring(2);
+
+    return {
+      total: time,
+      minutes: min >= 10 ? min : `0${min}`,
+      seconds: sec >= 10 ? sec : `0${sec}`,
+      miliseconds: msec
+    };
+  }
+
+  function createNewLap() {
+    setLap([format(timeElapsed), ...lap]);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <div id="chronometer">
+        <h2>
+          {duration.minutes}:{duration.seconds}.{duration.miliseconds}
+        </h2>
+      </div>
+      <div>
+        <button type="button" onClick={isRunning ? createNewLap : reset}>
+          {isRunning ? "Lap" : timeElapsed > 0 ? "Reset" : "Lap"}
+        </button>
+        <button type="button" onClick={isRunning ? stop : start}>
+          {isRunning ? "Stop" : "Start"}
+        </button>
+      </div>
+      <div id="laps">
+        {lap.map(l => (
+          <p key={l.total}>
+            {l.minutes}:{l.seconds}.{l.miliseconds}
+          </p>
+        ))}
+      </div>
+    </Container>
   );
 }
-
-export default App;
