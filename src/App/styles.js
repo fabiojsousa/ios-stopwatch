@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import PerfectScrollBar from 'react-perfect-scrollbar';
 
 export const Container = styled.div`
   display: flex;
   height: 100%;
+
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -10,6 +12,7 @@ export const Container = styled.div`
   main {
     max-width: 800px;
     display: flex;
+    margin: auto;
     justify-content: center;
     flex-direction: column;
     height: 100%;
@@ -94,14 +97,10 @@ export const Container = styled.div`
       align-items: center;
       justify-content: center;
 
-      hr {
-        width: 100%;
-      }
-
       p {
         display: flex;
         justify-content: space-between;
-        color: #ffffff;
+        color: ${props => props.lap && props.lap === 'best' ? 'green' : props.lap === 'worse' ? 'red' : '#ffffff'};
         font-size: 25px;
         width: 100%;
         padding: 20px 0;
@@ -119,3 +118,13 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const Scroll = styled(PerfectScrollBar)`
+  max-height: 285px;
+  width: 100%;
+  padding: 0 20px;
+
+  .bZeebZ .ps__rail-y {
+    background-color: black;
+  }
+`

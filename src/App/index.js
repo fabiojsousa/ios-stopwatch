@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container } from './styles';
+import { Container, Scroll } from './styles';
 
 export default function App() {
   const [isRunning, setIsRunning] = useState(false);
@@ -10,6 +10,8 @@ export default function App() {
   const [startTime, setStartTime] = useState();
   const [timer, setTimer] = useState();
   const [lap, setLap] = useState([]);
+  const [lapPlaceholder, setLapPlaceholder] = useState([]);
+  const [bestWorseLap, setBestWorseLap] = useState();
 
   useEffect(() => {
     if (newInterval && isRunning) {
@@ -31,10 +33,17 @@ export default function App() {
   }, [timeElapsed]);
 
   useEffect(() => {
-    console.log(lap)
-    // const lapElement = document.querySelector('#laps');
-    // if (lap.length < 4) lapElement.removeChild(lapElement.childNodes[0]);
+    let arr = [];
+
+    for (let i = 0; i < 4 - lap.length; i++) {
+      arr.push('');
+    }
+    setLapPlaceholder(arr);
   }, [lap]);
+
+  useEffect(() => {
+    console.log(bestWorseLap)
+  }, [bestWorseLap]);
 
   function start() {
     setIsRunning(true);
@@ -62,6 +71,7 @@ export default function App() {
     const msec = (allSec % 1).toFixed(2).substring(2);
 
     return {
+      totalTime: allSec,
       minutes: min >= 10 ? min : `0${min}`,
       seconds: sec >= 10 ? sec : `0${sec}`,
       miliseconds: msec,
@@ -69,7 +79,16 @@ export default function App() {
   }
 
   function createNewLap() {
-    setLap([{index: lap.length +1, time: format(timeElapsed)},...lap]);
+    setLap([{ index: lap.length + 1, time: format(timeElapsed) }, ...lap]);
+
+    const { totalTime } = format(timeElapsed);
+
+    if (lap.length === 0)
+      setBestWorseLap({ best: totalTime, worse: totalTime });
+    else if (lap.totalTime <= bestWorseLap.best) {
+      setBestWorseLap({ best: lap.totalTime, worse: bestWorseLap.worse });
+    } else if (lap.totalTime >= bestWorseLap.worse)
+      setBestWorseLap({ best: bestWorseLap.best, worse: lap.totalTime });
   }
 
   return (
@@ -92,19 +111,36 @@ export default function App() {
             </button>
           </div>
         </div>
+
         <div id="laps">
-          { lap.length > 0 && lap.map((l) => (
-            <p key={l.index}>
-              <span>Lap {l.index}</span>
-              <span>
-                {l.time.minutes}:{l.time.seconds}.{l.time.miliseconds}
-              </span>
-            </p>
-          ))}
-          <p> </p>
-          <p></p>
-          <p></p>
-          <p></p>
+          <Scroll option={{ maxScrollbarLength: 80 }}>
+            {lap.length > 0 &&
+              lap.map(l => (
+                <p
+                  key={l.index}
+                  lap={
+                    lap.length >= 3 && l.totalTime <= bestWorseLap.best
+                      ? 'best'
+                      : l.totalTime >= bestWorseLap.worse
+                      ? 'worse'
+                      : 'normal'
+                  }
+                >
+                  <span>Lap {l.index}</span>
+                  <span>
+                    {l.time.minutes}:{l.time.seconds}.{l.time.miliseconds}
+                  </span>
+                </p>
+              ))}
+
+            {lap.length < 4 &&
+              lapPlaceholder.map(p => (
+                <p key={Math.random()}>
+                  <span>Lap</span>
+                  <span>time</span>
+                </p>
+              ))}
+          </Scroll>
         </div>
       </main>
     </Container>
