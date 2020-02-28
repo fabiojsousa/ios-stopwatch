@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 export default function App() {
   const [isRunning, setIsRunning] = useState(false);
@@ -30,6 +30,12 @@ export default function App() {
     setDuration(format(timeElapsed));
   }, [timeElapsed]);
 
+  useEffect(() => {
+    console.log(lap)
+    // const lapElement = document.querySelector('#laps');
+    // if (lap.length < 4) lapElement.removeChild(lapElement.childNodes[0]);
+  }, [lap]);
+
   function start() {
     setIsRunning(true);
     setStartTime(Date.now());
@@ -56,39 +62,51 @@ export default function App() {
     const msec = (allSec % 1).toFixed(2).substring(2);
 
     return {
-      total: time,
       minutes: min >= 10 ? min : `0${min}`,
       seconds: sec >= 10 ? sec : `0${sec}`,
-      miliseconds: msec
+      miliseconds: msec,
     };
   }
 
   function createNewLap() {
-    setLap([format(timeElapsed), ...lap]);
+    setLap([{index: lap.length +1, time: format(timeElapsed)},...lap]);
   }
 
   return (
     <Container>
-      <div id="chronometer">
-        <h2>
-          {duration.minutes}:{duration.seconds}.{duration.miliseconds}
-        </h2>
-      </div>
-      <div>
-        <button type="button" onClick={isRunning ? createNewLap : reset}>
-          {isRunning ? "Lap" : timeElapsed > 0 ? "Reset" : "Lap"}
-        </button>
-        <button type="button" onClick={isRunning ? stop : start}>
-          {isRunning ? "Stop" : "Start"}
-        </button>
-      </div>
-      <div id="laps">
-        {lap.map(l => (
-          <p key={l.total}>
-            {l.minutes}:{l.seconds}.{l.miliseconds}
-          </p>
-        ))}
-      </div>
+      <main>
+        <div id="stopwatch">
+          <h1>
+            {duration.minutes}:{duration.seconds}.{duration.miliseconds}
+          </h1>
+        </div>
+        <div id="buttons">
+          <div className="leftButton">
+            <button type="button" onClick={isRunning ? createNewLap : reset}>
+              {isRunning ? 'Lap' : timeElapsed > 0 ? 'Reset' : 'Lap'}
+            </button>
+          </div>
+          <div className="rightButton">
+            <button type="button" onClick={isRunning ? stop : start}>
+              {isRunning ? 'Stop' : 'Start'}
+            </button>
+          </div>
+        </div>
+        <div id="laps">
+          { lap.length > 0 && lap.map((l) => (
+            <p key={l.index}>
+              <span>Lap {l.index}</span>
+              <span>
+                {l.time.minutes}:{l.time.seconds}.{l.time.miliseconds}
+              </span>
+            </p>
+          ))}
+          <p> </p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </div>
+      </main>
     </Container>
   );
 }
