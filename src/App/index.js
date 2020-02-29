@@ -10,8 +10,7 @@ export default function App() {
   const [startTime, setStartTime] = useState();
   const [timer, setTimer] = useState();
   const [lap, setLap] = useState([]);
-  const [lapPlaceholder, setLapPlaceholder] = useState([]);
-  const [bestWorseLap, setBestWorseLap] = useState();
+  const [newLap, setNewLap] = useState(0);
 
   useEffect(() => {
     if (newInterval && isRunning) {
@@ -26,24 +25,16 @@ export default function App() {
       );
       setNewInterval(false);
     }
-  }, [isRunning, newInterval, timeElapsed, startTime]);
+  }, [isRunning, newInterval, timeElapsed, startTime, newLap]);
 
   useEffect(() => {
     setDuration(format(timeElapsed));
   }, [timeElapsed]);
 
   useEffect(() => {
-    let arr = [];
-
-    for (let i = 0; i < 4 - lap.length; i++) {
-      arr.push('');
-    }
-    setLapPlaceholder(arr);
-  }, [lap]);
-
-  useEffect(() => {
-    console.log(bestWorseLap)
-  }, [bestWorseLap]);
+    const nLap = newLap + 10;
+    timeElapsed && setNewLap(nLap);
+  }, [timeElapsed]);
 
   function start() {
     setIsRunning(true);
@@ -60,6 +51,7 @@ export default function App() {
     clearInterval(timer);
     setTimeElapsed(0);
     setLap([]);
+    setNewLap(0);
     setIsRunning(false);
     setNewInterval(true);
   }
@@ -70,25 +62,21 @@ export default function App() {
     const sec = Math.floor(allSec % 60);
     const msec = (allSec % 1).toFixed(2).substring(2);
 
-    return {
+    let allData = {
       totalTime: allSec,
       minutes: min >= 10 ? min : `0${min}`,
       seconds: sec >= 10 ? sec : `0${sec}`,
       miliseconds: msec,
     };
+
+    allData.formatedTime = `${allData.minutes}:${allData.seconds}:${allData.miliseconds}`;
+
+    return allData;
   }
 
   function createNewLap() {
-    setLap([{ index: lap.length + 1, time: format(timeElapsed) }, ...lap]);
-
-    const { totalTime } = format(timeElapsed);
-
-    if (lap.length === 0)
-      setBestWorseLap({ best: totalTime, worse: totalTime });
-    else if (lap.totalTime <= bestWorseLap.best) {
-      setBestWorseLap({ best: lap.totalTime, worse: bestWorseLap.worse });
-    } else if (lap.totalTime >= bestWorseLap.worse)
-      setBestWorseLap({ best: bestWorseLap.best, worse: lap.totalTime });
+    setLap([{ index: lap.length + 1, time: format(newLap) }, ...lap]);
+    setNewLap(0)
   }
 
   return (
@@ -114,32 +102,32 @@ export default function App() {
 
         <div id="laps">
           <Scroll option={{ maxScrollbarLength: 80 }}>
-            {lap.length > 0 &&
-              lap.map(l => (
-                <p
-                  key={l.index}
-                  lap={
-                    lap.length >= 3 && l.totalTime <= bestWorseLap.best
-                      ? 'best'
-                      : l.totalTime >= bestWorseLap.worse
-                      ? 'worse'
-                      : 'normal'
-                  }
-                >
-                  <span>Lap {l.index}</span>
-                  <span>
-                    {l.time.minutes}:{l.time.seconds}.{l.time.miliseconds}
-                  </span>
-                </p>
-              ))}
-
-            {lap.length < 4 &&
-              lapPlaceholder.map(p => (
-                <p key={Math.random()}>
-                  <span>Lap</span>
-                  <span>time</span>
-                </p>
-              ))}
+            <p>
+              <span>{timeElapsed > 0 && `Lap ${lap.length + 1}`}</span>
+              <span>
+                <span>
+                  {timeElapsed > 0 && format(newLap).formatedTime}
+                </span>
+              </span>
+            </p>
+            <p>
+              <span>{lap[0] && `Lap ${lap[0].index}`}</span>
+              <span>
+                <span>{lap[0] && `${lap[0].time.formatedTime}`}</span>
+              </span>
+            </p>
+            <p>
+              <span>{lap[1] && `Lap ${lap[1].index}`}</span>
+              <span>
+                <span>{lap[1] && `${lap[1].time.formatedTime}`}</span>
+              </span>
+            </p>
+            <p>
+              <span>{lap[2] && `Lap ${lap[2].index}`}</span>
+              <span>
+                <span>{lap[2] && `${lap[2].time.formatedTime}`}</span>
+              </span>
+            </p>
           </Scroll>
         </div>
       </main>

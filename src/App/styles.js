@@ -96,6 +96,7 @@ export const Container = styled.div`
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      height: 285px;
 
       p {
         display: flex;
@@ -107,6 +108,14 @@ export const Container = styled.div`
         border: 1px solid #333333;
         border-left: 0;
         border-right: 0;
+
+        span {
+          width: 120px;
+          span {
+            text-align: left;
+            padding-left: 25px;
+          }
+        }
       }
 
       p + p {
@@ -120,7 +129,6 @@ export const Container = styled.div`
 `;
 
 export const Scroll = styled(PerfectScrollBar)`
-  max-height: 285px;
   width: 100%;
   padding: 0 20px;
 
