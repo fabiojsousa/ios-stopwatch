@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
-import { Container, Scroll } from './styles';
+import { Container } from './styles';
+import format from '../../services/format';
+import Laps from './Laps';
 
 export default function App() {
   const [isRunning, setIsRunning] = useState(false);
@@ -11,6 +13,7 @@ export default function App() {
   const [timer, setTimer] = useState();
   const [lap, setLap] = useState([]);
   const [newLap, setNewLap] = useState(0);
+  const [bestWorseLap, setBestWorseLap] = useState();
 
   useEffect(() => {
     if (newInterval && isRunning) {
@@ -25,7 +28,7 @@ export default function App() {
       );
       setNewInterval(false);
     }
-  }, [isRunning, newInterval, timeElapsed, startTime, newLap]);
+  }, [isRunning, newInterval]);
 
   useEffect(() => {
     setDuration(format(timeElapsed));
@@ -35,6 +38,35 @@ export default function App() {
     const nLap = newLap + 10;
     timeElapsed && setNewLap(nLap);
   }, [timeElapsed]);
+
+  useEffect(() => {
+    //infinity number
+    let bestLap = 1797693134862315e308;
+    let worseLap = 0;
+
+    let bestIndex, worseIndex;
+
+    if (lap.length > 2) {
+      lap.forEach(l => {
+        const { totalTime } = l.time;
+
+        if (totalTime <= bestLap) {
+          bestLap = totalTime;
+          bestIndex = l.index;
+        }
+
+        if (totalTime >= worseLap) {
+          worseLap = totalTime;
+          worseIndex = l.index;
+        }
+      });
+    }
+
+    setBestWorseLap({
+      best: { time: bestLap, index: bestIndex },
+      worse: { time: worseLap, index: worseIndex },
+    });
+  }, [lap]);
 
   function start() {
     setIsRunning(true);
@@ -54,24 +86,6 @@ export default function App() {
     setNewLap(0);
     setIsRunning(false);
     setNewInterval(true);
-  }
-
-  function format(time) {
-    const allSec = time / 1000;
-    const min = Math.floor(allSec / 60);
-    const sec = Math.floor(allSec % 60);
-    const msec = (allSec % 1).toFixed(2).substring(2);
-
-    let allData = {
-      totalTime: allSec,
-      minutes: min >= 10 ? min : `0${min}`,
-      seconds: sec >= 10 ? sec : `0${sec}`,
-      miliseconds: msec,
-    };
-
-    allData.formatedTime = `${allData.minutes}:${allData.seconds}.${allData.miliseconds}`;
-
-    return allData;
   }
 
   function createNewLap() {
@@ -101,24 +115,12 @@ export default function App() {
         </div>
 
         <div id="laps">
-          <Scroll options={{ maxScrollbarLength: 80 }}>
-            <p>
-              <span>{timeElapsed > 0 && `Lap ${lap.length + 1}`}</span>
-              <span>{timeElapsed > 0 && format(newLap).formatedTime}</span>
-            </p>
-            <p>
-              <span>{lap[0] && `Lap ${lap[0].index}`}</span>
-              <span>{lap[0] && `${lap[0].time.formatedTime}`}</span>
-            </p>
-            <p>
-              <span>{lap[1] && `Lap ${lap[1].index}`}</span>
-              <span>{lap[1] && `${lap[1].time.formatedTime}`}</span>
-            </p>
-            <p>
-              <span>{lap[2] && `Lap ${lap[2].index}`}</span>
-              <span>{lap[2] && `${lap[2].time.formatedTime}`}</span>
-            </p>
-          </Scroll>
+          <Laps
+            timeElapsed={timeElapsed}
+            lap={lap}
+            newLap={newLap}
+            bestWorseLap={lap.length > 1 && bestWorseLap}
+          />
         </div>
       </main>
     </Container>

@@ -1,12 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+
+import StopWatch from './Components/StopWatch';
 import Global from './styles/global';
 
 ReactDOM.render(
   <>
     <Global />
-    <App />
+    <StopWatch />
   </>,
   document.getElementById('root')
 );

@@ -1,12 +1,10 @@
 import styled from 'styled-components';
-import PerfectScrollBar from 'react-perfect-scrollbar';
 
 export const Container = styled.div`
   display: flex;
-  height: 100%;
   align-items: center;
   justify-content: center;
-  padding: 0 5px;
+  padding: 5px;
   margin: 0 auto;
 
   main {
@@ -14,13 +12,15 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+    margin-top: 50px;
 
 
     #stopwatch {
       color: #ffffff;
       margin-bottom: 60px;
-      text-align: center;
-      /* padding-left: 15px; */
+      /* text-align: center; */
+      padding-left: 35px;
+      /**329 654*/
 
       h1 {
         font-weight: normal;
@@ -31,10 +31,9 @@ export const Container = styled.div`
     #buttons {
       display: flex;
       justify-content: space-between;
-      padding: 0 35px;
+      padding: 0 25px;
 
       div {
-        position: relative;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -72,38 +71,9 @@ export const Container = styled.div`
     }
 
     #laps {
-      width: 400px;
       margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 285px;
-      p {
-        display: flex;
-        justify-content: space-between;
-        color: ${props => props.lap && props.lap === 'best' ? 'green' : props.lap === 'worse' ? 'red' : '#ffffff'};
-        width: 100%;
-        padding: 10px 0;
-        border: 1px solid #333333;
-        border-left: 0;
-        border-right: 0;
-
-        span {
-          height: 17px;
-        }
-      }
-      p + p {
-        border: 1px solid #333333;
-        border-left: 0;
-        border-right: 0;
-        border-top: 0;
-      }
     }
   }
 `;
 
-export const Scroll = styled(PerfectScrollBar)`
-  width: 100%;
-  padding: 0 35px;
-`
+
