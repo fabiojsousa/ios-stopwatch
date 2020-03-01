@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.js": "/ios-stopwatch/static/js/main.13fb5118.chunk.js",
-    "main.js.map": "/ios-stopwatch/static/js/main.13fb5118.chunk.js.map",
+    "main.js": "/ios-stopwatch/static/js/main.0595428e.chunk.js",
+    "main.js.map": "/ios-stopwatch/static/js/main.0595428e.chunk.js.map",
     "runtime-main.js": "/ios-stopwatch/static/js/runtime-main.18ef8bbf.js",
     "runtime-main.js.map": "/ios-stopwatch/static/js/runtime-main.18ef8bbf.js.map",
     "static/css/2.18fb2ca0.chunk.css": "/ios-stopwatch/static/css/2.18fb2ca0.chunk.css",
-    "static/js/2.84ff5149.chunk.js": "/ios-stopwatch/static/js/2.84ff5149.chunk.js",
-    "static/js/2.84ff5149.chunk.js.map": "/ios-stopwatch/static/js/2.84ff5149.chunk.js.map",
+    "static/js/2.8724c016.chunk.js": "/ios-stopwatch/static/js/2.8724c016.chunk.js",
+    "static/js/2.8724c016.chunk.js.map": "/ios-stopwatch/static/js/2.8724c016.chunk.js.map",
     "index.html": "/ios-stopwatch/index.html",
-    "precache-manifest.be67c13e22aacf318f1019bbee2c3ff7.js": "/ios-stopwatch/precache-manifest.be67c13e22aacf318f1019bbee2c3ff7.js",
+    "precache-manifest.daef5df2b19b63fdf7ee313d8e0b6747.js": "/ios-stopwatch/precache-manifest.daef5df2b19b63fdf7ee313d8e0b6747.js",
     "service-worker.js": "/ios-stopwatch/service-worker.js",
     "static/css/2.18fb2ca0.chunk.css.map": "/ios-stopwatch/static/css/2.18fb2ca0.chunk.css.map",
-    "static/js/2.84ff5149.chunk.js.LICENSE.txt": "/ios-stopwatch/static/js/2.84ff5149.chunk.js.LICENSE.txt"
+    "static/js/2.8724c016.chunk.js.LICENSE.txt": "/ios-stopwatch/static/js/2.8724c016.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.18ef8bbf.js",
     "static/css/2.18fb2ca0.chunk.css",
-    "static/js/2.84ff5149.chunk.js",
-    "static/js/main.13fb5118.chunk.js"
+    "static/js/2.8724c016.chunk.js",
+    "static/js/main.0595428e.chunk.js"
   ]
 }
