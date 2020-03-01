@@ -4,36 +4,34 @@ import PerfectScrollBar from 'react-perfect-scrollbar';
 export const Container = styled.div`
   display: flex;
   height: 100%;
-
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  padding: 0 5px;
+  margin: 0 auto;
 
   main {
     max-width: 800px;
     display: flex;
-    margin: auto;
     justify-content: center;
     flex-direction: column;
-    height: 100%;
-    padding: 0 5px;
+
 
     #stopwatch {
       color: #ffffff;
       margin-bottom: 60px;
-      width: 700px;
-      padding-left: 61px;
+      text-align: center;
+      /* padding-left: 15px; */
 
       h1 {
         font-weight: normal;
-        font-size: 150px;
+        font-size: 85px;
       }
     }
 
     #buttons {
       display: flex;
       justify-content: space-between;
-      padding: 0 65px;
+      padding: 0 35px;
 
       div {
         position: relative;
@@ -42,82 +40,59 @@ export const Container = styled.div`
         align-items: center;
 
         button {
-          width: 115px;
-          height: 115px;
+          width: 60px;
+          height: 60px;
           border-radius: 50%;
-          font-size: 30px;
-          border: 3px solid black;
+          border: 2px solid black;
         }
       }
 
       div.leftButton {
-        &::before {
-          z-index: -1;
-          position: absolute;
-          width: 122px;
-          height: 122px;
-          border-radius: 50%;
-          border: 2px solid black;
-          content: '';
-          background-color: #333333;
-        }
-
         button {
-          background-color: #333333;
-          color: #ffffff;
+          background-color: ${props => props.reseted === 'no' ? '#333333' : '#1C1C1E'};
+          color: ${props => props.reseted === 'no' ? '#ffffff' : '#999999'};
           font-weight: 500;
+          box-shadow: 0px 0px 0px 2px ${props => props.reseted === 'no' ? '#333333' : '#1C1C1E'} ;
+
+          :active {
+          background-color: ${props => props.reseted === 'no' ? '#1B1B1B' : '#0F0F11'};
+            box-shadow: 0px 0px 0px 2px ${props => props.reseted === 'no' ? '#1B1B1B' : '#0F0F11'};
+          }
         }
       }
 
       div.rightButton {
-        &::before {
-          z-index: -1;
-          position: absolute;
-          width: 122px;
-          height: 122px;
-          border-radius: 50%;
-          content: '';
-          background-color: #330000;
-          border: 2px solid black;
-        }
-
         button {
-          background-color: #330000;
-          color: #ff6633;
+          background-color: ${props => props.running === 'on' ? '#330000' : '#003300'};
+          color: ${props => props.running === 'on' ? '#cc6633' : '#66cc66'};
           font-weight: 500;
+          box-shadow: 0px 0px 0px 2px ${props => props.running === 'on' ? '#330000' : '#003300'};
         }
       }
     }
 
     #laps {
-      padding: 0 65px;
+      width: 400px;
       margin-top: 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 285px;
-
       p {
         display: flex;
         justify-content: space-between;
         color: ${props => props.lap && props.lap === 'best' ? 'green' : props.lap === 'worse' ? 'red' : '#ffffff'};
-        font-size: 25px;
         width: 100%;
-        padding: 20px 0;
+        padding: 10px 0;
         border: 1px solid #333333;
         border-left: 0;
         border-right: 0;
 
         span {
-          width: 120px;
-          span {
-            text-align: left;
-            padding-left: 25px;
-          }
+          height: 17px;
         }
       }
-
       p + p {
         border: 1px solid #333333;
         border-left: 0;
@@ -130,9 +105,5 @@ export const Container = styled.div`
 
 export const Scroll = styled(PerfectScrollBar)`
   width: 100%;
-  padding: 0 20px;
-
-  .bZeebZ .ps__rail-y {
-    background-color: black;
-  }
+  padding: 0 35px;
 `

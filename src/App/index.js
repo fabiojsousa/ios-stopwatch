@@ -69,18 +69,18 @@ export default function App() {
       miliseconds: msec,
     };
 
-    allData.formatedTime = `${allData.minutes}:${allData.seconds}:${allData.miliseconds}`;
+    allData.formatedTime = `${allData.minutes}:${allData.seconds}.${allData.miliseconds}`;
 
     return allData;
   }
 
   function createNewLap() {
     setLap([{ index: lap.length + 1, time: format(newLap) }, ...lap]);
-    setNewLap(0)
+    setNewLap(0);
   }
 
   return (
-    <Container>
+    <Container running={isRunning && 'on'} reseted={timeElapsed > 0 && 'no'}>
       <main>
         <div id="stopwatch">
           <h1>
@@ -101,32 +101,22 @@ export default function App() {
         </div>
 
         <div id="laps">
-          <Scroll option={{ maxScrollbarLength: 80 }}>
+          <Scroll options={{ maxScrollbarLength: 80 }}>
             <p>
               <span>{timeElapsed > 0 && `Lap ${lap.length + 1}`}</span>
-              <span>
-                <span>
-                  {timeElapsed > 0 && format(newLap).formatedTime}
-                </span>
-              </span>
+              <span>{timeElapsed > 0 && format(newLap).formatedTime}</span>
             </p>
             <p>
               <span>{lap[0] && `Lap ${lap[0].index}`}</span>
-              <span>
-                <span>{lap[0] && `${lap[0].time.formatedTime}`}</span>
-              </span>
+              <span>{lap[0] && `${lap[0].time.formatedTime}`}</span>
             </p>
             <p>
               <span>{lap[1] && `Lap ${lap[1].index}`}</span>
-              <span>
-                <span>{lap[1] && `${lap[1].time.formatedTime}`}</span>
-              </span>
+              <span>{lap[1] && `${lap[1].time.formatedTime}`}</span>
             </p>
             <p>
               <span>{lap[2] && `Lap ${lap[2].index}`}</span>
-              <span>
-                <span>{lap[2] && `${lap[2].time.formatedTime}`}</span>
-              </span>
+              <span>{lap[2] && `${lap[2].time.formatedTime}`}</span>
             </p>
           </Scroll>
         </div>
