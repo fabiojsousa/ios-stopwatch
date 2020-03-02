@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container } from './styles';
 
@@ -12,3 +13,9 @@ export default function Line({ index, lap, bestWorseLap }) {
     </Container>
   );
 }
+
+Line.propTypes = {
+  index: PropTypes.number,
+  lap: PropTypes.array,
+  bestWorseLap: PropTypes.object,
+};

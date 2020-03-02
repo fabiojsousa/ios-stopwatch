@@ -40,7 +40,7 @@ export const Container = styled.div`
     width: 60px;
 
     span {
-      padding-left: 6px;;
+      /* padding-left: 6px; */
     }
   }
 `;

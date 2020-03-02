@@ -15,10 +15,7 @@ export default createGlobalStyle`
     }
 
     html, body, #root {
-        /* height: 100%; */
-    }
-    .main-container{
-      background-color: white;
+        height: 100%;
     }
 
     body{
@@ -27,7 +24,7 @@ export default createGlobalStyle`
     }
 
     body, input, button {
-        font: 14px 'Roboto', sans-serif;
+        font: 16px 'Roboto', sans-serif;
     }
 
     button{

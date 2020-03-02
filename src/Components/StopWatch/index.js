@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import { Container } from './styles';
-import format from '../../services/format';
+import format from '~/services/format';
 import Laps from './Laps';
 
-export default function App() {
+export default function StopWatch() {
   const [isRunning, setIsRunning] = useState(false);
   const [newInterval, setNewInterval] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
@@ -13,6 +13,7 @@ export default function App() {
   const [timer, setTimer] = useState();
   const [lap, setLap] = useState([]);
   const [newLap, setNewLap] = useState(0);
+  const [resetNewLap, setResetNewLap] = useState(0);
   const [bestWorseLap, setBestWorseLap] = useState();
 
   useEffect(() => {
@@ -32,11 +33,7 @@ export default function App() {
 
   useEffect(() => {
     setDuration(format(timeElapsed));
-  }, [timeElapsed]);
-
-  useEffect(() => {
-    const nLap = newLap + 10;
-    timeElapsed && setNewLap(nLap);
+    setNewLap(timeElapsed - resetNewLap);
   }, [timeElapsed]);
 
   useEffect(() => {
@@ -46,8 +43,12 @@ export default function App() {
 
     let bestIndex, worseIndex;
 
-    if (lap.length > 2) {
-      lap.forEach(l => {
+    const lapReverse = [...lap];
+
+    lapReverse.reverse();
+
+    if (lapReverse.length > 1) {
+      lapReverse.forEach(l => {
         const { totalTime } = l.time;
 
         if (totalTime <= bestLap) {
@@ -84,13 +85,14 @@ export default function App() {
     setTimeElapsed(0);
     setLap([]);
     setNewLap(0);
+    setResetNewLap(0);
     setIsRunning(false);
     setNewInterval(true);
   }
 
   function createNewLap() {
     setLap([{ index: lap.length + 1, time: format(newLap) }, ...lap]);
-    setNewLap(0);
+    setResetNewLap(timeElapsed);
   }
 
   return (

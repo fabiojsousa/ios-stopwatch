@@ -1,9 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Container, Scroll } from './styles';
 import Line from './Line';
-// import format from '~/services/format';
-import format from '../../../services/format';
+import format from '~/services/format';
 
 export default function Laps({ timeElapsed, lap, newLap, bestWorseLap }) {
   return (
@@ -35,3 +35,10 @@ export default function Laps({ timeElapsed, lap, newLap, bestWorseLap }) {
     </Container>
   );
 }
+
+Laps.propTypes = {
+  timeElapsed: PropTypes.number,
+  lap: PropTypes.array,
+  newLap: PropTypes.number,
+  bestWorseLap: PropTypes.object,
+};

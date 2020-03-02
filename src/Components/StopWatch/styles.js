@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
+  height: 100%;
   align-items: center;
   justify-content: center;
   padding: 5px;
@@ -12,18 +13,16 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 50px;
 
 
     #stopwatch {
       color: #ffffff;
       margin-bottom: 60px;
-      /* text-align: center; */
-      padding-left: 35px;
-      /**329 654*/
+      text-align: center;
+      /* padding-left: 35px; */
 
       h1 {
-        font-weight: normal;
+        font-weight: 300;
         font-size: 85px;
       }
     }
@@ -32,6 +31,7 @@ export const Container = styled.div`
       display: flex;
       justify-content: space-between;
       padding: 0 25px;
+      margin-top: 15px;
 
       div {
         display: flex;
@@ -39,8 +39,8 @@ export const Container = styled.div`
         align-items: center;
 
         button {
-          width: 60px;
-          height: 60px;
+          width: 70px;
+          height: 70px;
           border-radius: 50%;
           border: 2px solid black;
         }

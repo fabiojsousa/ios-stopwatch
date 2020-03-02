@@ -7,7 +7,7 @@ export const Container = styled.div`
 
       let color;
 
-      if (lap.length > 2) {
+      if (lap.length > 1 && lap[i]) {
         const { time: bestTime, index: bestIndex } = bestWorseLap.best;
         const { time: worseTime, index: worseIndex } = bestWorseLap.worse;
 
