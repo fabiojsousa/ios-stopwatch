@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.js": "/ios-stopwatch/static/js/main.206d5778.chunk.js",
-    "main.js.map": "/ios-stopwatch/static/js/main.206d5778.chunk.js.map",
+    "main.js": "/ios-stopwatch/static/js/main.a2dfcade.chunk.js",
+    "main.js.map": "/ios-stopwatch/static/js/main.a2dfcade.chunk.js.map",
     "runtime-main.js": "/ios-stopwatch/static/js/runtime-main.f03c91c2.js",
     "runtime-main.js.map": "/ios-stopwatch/static/js/runtime-main.f03c91c2.js.map",
     "static/css/2.18fb2ca0.chunk.css": "/ios-stopwatch/static/css/2.18fb2ca0.chunk.css",
     "static/js/2.7d36d5b3.chunk.js": "/ios-stopwatch/static/js/2.7d36d5b3.chunk.js",
     "static/js/2.7d36d5b3.chunk.js.map": "/ios-stopwatch/static/js/2.7d36d5b3.chunk.js.map",
     "index.html": "/ios-stopwatch/index.html",
-    "precache-manifest.4e81d0a5be699495e447330b48a29a81.js": "/ios-stopwatch/precache-manifest.4e81d0a5be699495e447330b48a29a81.js",
+    "precache-manifest.924b9ae8241fee290b530a106f30df1d.js": "/ios-stopwatch/precache-manifest.924b9ae8241fee290b530a106f30df1d.js",
     "service-worker.js": "/ios-stopwatch/service-worker.js",
     "static/css/2.18fb2ca0.chunk.css.map": "/ios-stopwatch/static/css/2.18fb2ca0.chunk.css.map",
     "static/js/2.7d36d5b3.chunk.js.LICENSE.txt": "/ios-stopwatch/static/js/2.7d36d5b3.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.f03c91c2.js",
     "static/css/2.18fb2ca0.chunk.css",
     "static/js/2.7d36d5b3.chunk.js",
-    "static/js/main.206d5778.chunk.js"
+    "static/js/main.a2dfcade.chunk.js"
   ]
 }
