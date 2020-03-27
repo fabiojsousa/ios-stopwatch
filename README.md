@@ -8,4 +8,4 @@ A stopwatch similar to iOS built with ReactJs and Styled-Components.
 - Worse Lap
 
 ## Live Version
-[https://fabiojsousa.github.io/ios-stopwatch/](https://fabiojsousa.github.io/ios-stopwatch/)
+<a href="https://fabiojsousa.github.io/ios-stopwatch/" target="_blank">https://fabiojsousa.github.io/ios-stopwatch/</a>
